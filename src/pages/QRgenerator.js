@@ -129,7 +129,7 @@ function QRgenerator() {
       {qrContent ? (
         <QRcode
           id="myqr"
-          value={`${qrContent}||${additionalInfo}||Unit: ${unit}||Years: ${years}||Status: ${status}||Serial Number: ${serialNumber}`}
+          value={`${qrContent}||${additionalInfo} ${unit}||${years} ${status} ${serialNumber}`}
           size={320}
           includeMargin={true}
         />

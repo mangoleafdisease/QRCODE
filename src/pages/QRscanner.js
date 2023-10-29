@@ -46,7 +46,7 @@ function QRscanner() {
       <TextareaAutosize
         style={{ fontSize: 18, width: 320, height: 100, marginTop: 100 }}
         rowsMax={7}
-        value={`Name: ${name}\nDescription: ${description} ${unit} ${years} ${status} ${serialNumber}`}
+        value={`Name: ${name}\nDescription: ${description}\nUnit: ${unit}\nYears: ${years}\nStatus: ${status}\nSerial Number: ${serialNumber}`}
       />
     </div>
   );
