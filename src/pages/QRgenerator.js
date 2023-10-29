@@ -1,29 +1,43 @@
 import React, { useState } from 'react';
 import { Fab, TextField, TextareaAutosize, Grid } from '@material-ui/core';
-import {  GetApp } from '@material-ui/icons';
+import { GetApp } from '@material-ui/icons';
 import QRcode from 'qrcode.react';
 
 function QRgenerator() {
   // State to hold the user input
   const [qrContent, setQrContent] = useState('');
-
-  // State to hold additional information
   const [additionalInfo, setAdditionalInfo] = useState('');
+  const [unit, setUnit] = useState('');
+  const [years, setYears] = useState('');
+  const [status, setStatus] = useState('');
+  const [serialNumber, setSerialNumber] = useState('');
 
   // Function to handle user input change
   const handleQrContentChange = (event) => {
     setQrContent(event.target.value);
   };
 
-  // Function to handle additional information change
   const handleAdditionalInfoChange = (event) => {
     setAdditionalInfo(event.target.value);
   };
 
-  const downloadQR = () => {
-    // Combine the user input and additional information with a delimiter
-    
+  const handleUnitChange = (event) => {
+    setUnit(event.target.value);
+  };
 
+  const handleYearsChange = (event) => {
+    setYears(event.target.value);
+  };
+
+  const handleStatusChange = (event) => {
+    setStatus(event.target.value);
+  };
+
+  const handleSerialNumberChange = (event) => {
+    setSerialNumber(event.target.value);
+  };
+
+  const downloadQR = () => {
     const canvas = document.getElementById('myqr');
     const pngUrl = canvas
       .toDataURL('image/png')
@@ -57,25 +71,72 @@ function QRgenerator() {
           onChange={handleAdditionalInfoChange}
           style={{ width: 320 }}
           value={additionalInfo}
-          label="Additional Information"
+          label="Discriptions"
           size="large"
           variant="outlined"
           color="primary"
         />
       </div>
 
-      <div>
-        {qrContent ? (
-          <QRcode
-            id="myqr"
-            value={`${qrContent}||${additionalInfo}`} // Set the QR code value to the combined content
-            size={320}
-            includeMargin={true}
-          />
-        ) : (
-          <p>No QR code preview</p>
-        )}
+      <div style={{ marginTop: 30 }}>
+        <TextField
+          onChange={handleUnitChange}
+          style={{ width: 320 }}
+          value={unit}
+          label="Unit"
+          size="large"
+          variant="outlined"
+          color="primary"
+        />
       </div>
+
+      <div style={{ marginTop: 30 }}>
+        <TextField
+          onChange={handleYearsChange}
+          style={{ width: 320 }}
+          value={years}
+          label="Years"
+          size="large"
+          variant="outlined"
+          color="primary"
+        />
+      </div>
+
+      <div style={{ marginTop: 30 }}>
+        <TextField
+          onChange={handleStatusChange}
+          style={{ width: 320 }}
+          value={status}
+          label="Status"
+          size="large"
+          variant="outlined"
+          color="primary"
+        />
+      </div>
+
+      <div style={{ marginTop: 30 }}>
+        <TextField
+          onChange={handleSerialNumberChange}
+          style={{ width: 320 }}
+          value={serialNumber}
+          label="Serial Number"
+          size="large"
+          variant="outlined"
+          color="primary"
+        />
+      </div>
+
+      {qrContent ? (
+        <QRcode
+          id="myqr"
+          value={`${qrContent}||${additionalInfo}||Unit: ${unit}||Years: ${years}||Status: ${status}||Serial Number: ${serialNumber}`}
+          size={320}
+          includeMargin={true}
+        />
+      ) : (
+        <p>No QR code preview</p>
+      )}
+
       <div>
         {qrContent ? (
           <Grid container>
