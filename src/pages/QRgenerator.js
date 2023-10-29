@@ -71,7 +71,7 @@ function QRgenerator() {
           onChange={handleAdditionalInfoChange}
           style={{ width: 320 }}
           value={additionalInfo}
-          label="Discriptions"
+          label="Additional Information"
           size="large"
           variant="outlined"
           color="primary"
@@ -129,7 +129,7 @@ function QRgenerator() {
       {qrContent ? (
         <QRcode
           id="myqr"
-          value={`${qrContent}||${additionalInfo} ${unit}||${years} ${status} ${serialNumber}`}
+          value={`${qrContent}||${additionalInfo}||Unit: ${unit}||Year: ${years}||Statu: ${status}||Serial Number: ${serialNumber}`}
           size={320}
           includeMargin={true}
         />
