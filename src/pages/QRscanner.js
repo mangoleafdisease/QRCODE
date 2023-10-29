@@ -5,9 +5,9 @@ import QrScan from 'react-qr-reader';
 function QRscanner() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [unit, setUnit] = useState('');
-  const [years, setYears] = useState('');
-  const [status, setStatus] = useState('');
+  const [unit, setUnit] = useState(''); // Initialize with an empty string
+  const [years, setYears] = useState(''); // Initialize with an empty string
+  const [status, setStatus] = useState(''); // Initialize with an empty string
   const [serialNumber, setSerialNumber] = useState('');
 
   const handleScan = (data) => {
