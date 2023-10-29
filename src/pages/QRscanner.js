@@ -1,19 +1,32 @@
 import React, { useState } from 'react';
-import { TextareaAutosize, Typography } from '@material-ui/core';
+import { TextareaAutosize } from '@material-ui/core';
 import QrScan from 'react-qr-reader';
 
 function QRscanner() {
-  const [qrscan, setQrscan] = useState('ExampleText | | Example Description | Unit: 1234 | Year: 2023 |');
-  
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [unit, setUnit] = useState('');
+  const [years, setYears] = useState('');
+  const [status, setStatus] = useState('');
+  const [serialNumber, setSerialNumber] = useState('');
+
   const handleScan = (data) => {
     if (data) {
-      setQrscan(data);
+      const scannedData = data.split('||');
+      if (scannedData.length === 6) { // Ensure there are six fields
+        setName(scannedData[0]);
+        setDescription(scannedData[1]);
+        setUnit(scannedData[2]);
+        setYears(scannedData[3]);
+        setStatus(scannedData[4]);
+        setSerialNumber(scannedData[5]);
+      }
     }
-  }
+  };
 
   const handleError = (err) => {
     console.error(err);
-  }
+  };
 
   return (
     <div>
@@ -30,21 +43,10 @@ function QRscanner() {
         </div>
       </center>
 
-      <div>
-        <Typography variant="h6">Scanned Content:</Typography>
-        <p><strong>Name:</strong> {qrscan.split('|')[0].trim()}</p>
-        <p><strong>Description:</strong> {qrscan.split('|')[1].trim()}</p>
-        <p><strong>Unit:</strong> {qrscan.split('|')[2].trim()}</p>
-        <p><strong>Years:</strong> {qrscan.split('|')[3].trim()}</p>
-        <p><strong>Status:</strong> {qrscan.split('|')[4].trim()}</p>
-        <p><strong>Serial Number:</strong> {qrscan.split('|')[5].trim()}</p>
-      </div>
-
       <TextareaAutosize
         style={{ fontSize: 18, width: 320, height: 100, marginTop: 100 }}
-        rowsMax={4}
-        defaultValue={qrscan}
-        value={qrscan}
+        rowsMax={7}
+        value={`Name: ${name}\nDescription: ${description}\nUnit: ${unit}\nYears: ${years}\nStatus: ${status}\nSerial Number: ${serialNumber}`}
       />
     </div>
   );
