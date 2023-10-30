@@ -1,9 +1,27 @@
 import React, { useState } from 'react';
-import { Fab, TextField, TextareaAutosize, Grid } from '@material-ui/core';
+import { Fab, TextField, TextareaAutosize, Grid, makeStyles } from '@material-ui/core';
 import { GetApp } from '@material-ui/icons';
 import QRcode from 'qrcode.react';
 
+const useStyles = makeStyles((theme) => ({
+  textField: {
+    width: '100%',
+    marginBottom: theme.spacing(2),
+  },
+  textArea: {
+    fontSize: '18px',
+    width: '100%',
+    height: '100px',
+    marginBottom: theme.spacing(2),
+  },
+  downloadButton: {
+    marginLeft: theme.spacing(2),
+  },
+}));
+
 function QRgenerator() {
+  const classes = useStyles();
+
   // State to hold the user input
   const [qrContent, setQrContent] = useState('');
   const [additionalInfo, setAdditionalInfo] = useState('');
@@ -54,77 +72,65 @@ function QRgenerator() {
     <div>
       <span>QR Generator</span>
 
-      <div style={{ marginTop: 30 }}>
-        <TextField
-          onChange={handleQrContentChange}
-          style={{ width: 320 }}
-          value={qrContent}
-          label="QR content"
-          size="large"
-          variant="outlined"
-          color="primary"
-        />
-      </div>
+      <TextField
+        onChange={handleQrContentChange}
+        className={classes.textField}
+        value={qrContent}
+        label="QR content"
+        size="large"
+        variant="outlined"
+        color="primary"
+      />
 
-      <div style={{ marginTop: 30 }}>
-        <TextField
-          onChange={handleAdditionalInfoChange}
-          style={{ width: 320 }}
-          value={additionalInfo}
-          label="Additional Information"
-          size="large"
-          variant="outlined"
-          color="primary"
-        />
-      </div>
+      <TextField
+        onChange={handleAdditionalInfoChange}
+        className={classes.textField}
+        value={additionalInfo}
+        label="Additional Information"
+        size="large"
+        variant="outlined"
+        color="primary"
+      />
 
-      <div style={{ marginTop: 30 }}>
-        <TextField
-          onChange={handleUnitChange}
-          style={{ width: 320 }}
-          value={unit}
-          label="Unit"
-          size="large"
-          variant="outlined"
-          color="primary"
-        />
-      </div>
+      <TextField
+        onChange={handleUnitChange}
+        className={classes.textField}
+        value={unit}
+        label="Unit"
+        size="large"
+        variant="outlined"
+        color="primary"
+      />
 
-      <div style={{ marginTop: 30 }}>
-        <TextField
-          onChange={handleYearsChange}
-          style={{ width: 320 }}
-          value={years}
-          label="Years"
-          size="large"
-          variant="outlined"
-          color="primary"
-        />
-      </div>
+      <TextField
+        onChange={handleYearsChange}
+        className={classes.textField}
+        value={years}
+        label="Years"
+        size="large"
+        variant="outlined"
+        color="primary"
+      />
 
-      <div style={{ marginTop: 30 }}>
-        <TextField
-          onChange={handleStatusChange}
-          style={{ width: 320 }}
-          value={status}
-          label="Status"
-          size="large"
-          variant="outlined"
-          color="primary"
-        />
-      </div>
+      <TextField
+        onChange={handleStatusChange}
+        className={classes.textField}
+        value={status}
+        label="Status"
+        size="large"
+        variant="outlined"
+        color="primary"
+      />
 
-      <div style={{ marginTop: 30 }}>
-        <TextField
-          onChange={handleSerialNumberChange}
-          style={{ width: 320 }}
-          value={serialNumber}
-          label="Serial Number"
-          size="large"
-          variant="outlined"
-          color="primary"
-        />
-      </div>
+      <TextField
+        onChange={handleSerialNumberChange}
+        className={classes.textField}
+        value={serialNumber}
+        label="Serial Number"
+        size="large"
+        variant="outlined"
+        color="primary"
+      />
 
       {qrContent ? (
         <QRcode
@@ -137,27 +143,21 @@ function QRgenerator() {
         <p>No QR code preview</p>
       )}
 
-      <div>
-        {qrContent ? (
-          <Grid container>
-            <Grid item xs={10}>
-              <TextareaAutosize
-                style={{ fontSize: 18, width: 250, height: 100 }}
-                rowsMax={4}
-                defaultValue={qrContent}
-                value={qrContent}
-              />
-            </Grid>
-            <Grid item xs={2}>
-              <Fab onClick={downloadQR} style={{ marginLeft: 10 }} color="primary">
-                <GetApp />
-              </Fab>
-            </Grid>
-          </Grid>
-        ) : (
-          ''
-        )}
-      </div>
+      <Grid container>
+        <Grid item xs={10}>
+          <TextareaAutosize
+            className={classes.textArea}
+            rowsMax={4}
+            defaultValue={qrContent}
+            value={qrContent}
+          />
+        </Grid>
+        <Grid item xs={2}>
+          <Fab onClick={downloadQR} className={classes.downloadButton} color="primary">
+            <GetApp />
+          </Fab>
+        </Grid>
+      </Grid>
     </div>
   );
 }

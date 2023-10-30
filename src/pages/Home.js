@@ -38,10 +38,6 @@ function Home() {
         </Toolbar>
       </AppBar>
 
-      <Typography style={{ margin: 30 }} variant="h2">
-        Scan QR Code
-      </Typography>
-
       <QRscanner />
 
       <Modal open={showLogin} onClose={handleLoginClose}>
