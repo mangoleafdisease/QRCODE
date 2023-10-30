@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import {  Button, Typography, Modal, TextField } from '@material-ui/core';
-import {  useHistory } from 'react-router-dom';
+import { Button, Typography, Modal, TextField, AppBar, Toolbar } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 import QRscanner from './QRscanner';
 
 function Home() {
   const [showLogin, setShowLogin] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const history = useHistory(); // Access the router's history object
+  const history = useHistory();
 
   const handleLoginClick = () => {
     setShowLogin(true);
@@ -18,11 +18,7 @@ function Home() {
   };
 
   const handleLogin = () => {
-    // Implement your login logic here
-    // You can check the username and password
-    // and perform authentication
     if (username === 'admin' && password === '1234') {
-      // Redirect to the admin dashboard after successful login
       history.push('/admin_dashboard');
     } else {
       alert('Login failed. Please check your credentials.');
@@ -31,23 +27,22 @@ function Home() {
 
   return (
     <div>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" style={{ flexGrow: 1 }}>
+            Your App Title
+          </Typography>
+          <Button color="inherit" onClick={handleLoginClick}>
+            Log In
+          </Button>
+        </Toolbar>
+      </AppBar>
+
       <Typography style={{ margin: 30 }} variant="h2">
         Scan QR Code
       </Typography>
 
-      {/* Add the QRscanner component here */}
       <QRscanner />
-
-      <div>
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={handleLoginClick}
-          style={{ marginTop: 20 }}
-        >
-          Log In
-        </Button>
-      </div>
 
       <Modal open={showLogin} onClose={handleLoginClose}>
         <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'white', padding: 20 }}>
