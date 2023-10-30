@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { TextareaAutosize } from '@material-ui/core';
 import QrScan from 'react-qr-reader';
 
 function QRscanner() {
-  const [qrscan, setQrscan] = useState('No result');
+  const [qrscan, setQrscan] = useState(null); // Use null to represent no result
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleScan = (data) => {
     if (data) {
       setQrscan(data);
+      setSelectedFile(null); // Reset the selected file when a QR code is scanned
     }
   };
 
@@ -20,7 +20,7 @@ function QRscanner() {
     const file = e.target.files[0];
     if (file) {
       setSelectedFile(file);
-      setQrscan('Scanning...');
+      setQrscan('');
       const reader = new FileReader();
       reader.onload = (event) => {
         // Use the imageDataUrl for displaying the selected image or for further processing.
@@ -33,26 +33,23 @@ function QRscanner() {
     <div>
       <span>QR Scanner</span>
 
-      <input type="file" accept="image/*" onChange={handleFileUpload} />
+      {qrscan === null ? ( // Only show QR scanner when qrscan is null
+        <input type="file" accept="image/*" onChange={handleFileUpload} />
+      ) : null}
       {selectedFile && <p>Selected File: {selectedFile.name}</p>}
 
       <center>
         <div style={{ marginTop: 30 }}>
-          <QrScan
-            delay={300}
-            onError={handleError}
-            onScan={handleScan}
-            style={{ height: 240, width: 320 }}
-          />
+          {qrscan === null ? ( // Only show QR scanner when qrscan is null
+            <QrScan
+              delay={300}
+              onError={handleError}
+              onScan={handleScan}
+              style={{ height: 240, width: 320 }}
+            />
+          ) : null}
         </div>
       </center>
-
-      <TextareaAutosize
-        style={{ fontSize: 18, width: 320, height: 100, marginTop: 100 }}
-        rowsMax={4}
-        defaultValue={qrscan}
-        value={qrscan}
-      />
     </div>
   );
 }
