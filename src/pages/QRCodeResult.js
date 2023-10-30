@@ -8,9 +8,7 @@ function QRCodeResult({ scannedData }) {
         QR Code Scan Result
       </Typography>
       <Paper elevation={3} style={{ padding: '16px' }}>
-        <Typography variant="body1">
-          Scanned Data:
-        </Typography>
+        <Typography variant="body1">Scanned Data:</Typography>
         <Typography variant="body2" color="textSecondary">
           {scannedData}
         </Typography>

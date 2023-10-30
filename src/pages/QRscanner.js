@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import QrScan from 'react-qr-reader';
+import { Grid, Typography, Button } from '@material-ui/core';
+import QRCodeResult from './QRCodeResult'; // Import QRCodeResult
 
 function QRscanner() {
-  const [qrscan, setQrscan] = useState(null); // Use null to represent no result
+  const [qrscan, setQrscan] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleScan = (data) => {
     if (data) {
       setQrscan(data);
-      setSelectedFile(null); // Reset the selected file when a QR code is scanned
+      setSelectedFile(null);
     }
   };
 
@@ -29,27 +31,49 @@ function QRscanner() {
     }
   };
 
+  const handleSomeAction = () => {
+    // Define the functionality for the Button click event here
+    // For example, you can add logic to perform a specific action.
+  };
+
   return (
     <div>
-      <span>QR Scanner</span>
+      <Typography variant="h6">QR Scanner</Typography>
 
-      {qrscan === null ? ( // Only show QR scanner when qrscan is null
-        <input type="file" accept="image/*" onChange={handleFileUpload} />
-      ) : null}
-      {selectedFile && <p>Selected File: {selectedFile.name}</p>}
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+          {qrscan === null && (
+            <div>
+              <input type="file" accept="image/*" onChange={handleFileUpload} />
+              {selectedFile && <p>Selected File: {selectedFile.name}</p>}
+            </div>
+          )}
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <div style={{ textAlign: 'center' }}>
+            {qrscan === null && (
+              <QrScan
+                delay={300}
+                onError={handleError}
+                onScan={handleScan}
+                style={{ width: '100%', height: 'auto' }}
+              />
+            )}
+            {qrscan && (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleSomeAction}
+              >
+                Some Action
+              </Button>
+            )}
+          </div>
+        </Grid>
+      </Grid>
 
-      <center>
-        <div style={{ marginTop: 30 }}>
-          {qrscan === null ? ( // Only show QR scanner when qrscan is null
-            <QrScan
-              delay={300}
-              onError={handleError}
-              onScan={handleScan}
-              style={{ height: 240, width: 320 }}
-            />
-          ) : null}
-        </div>
-      </center>
+      {/* Pass the 'qrscan' data to QRCodeResult component */}
+      {qrscan && <QRCodeResult scannedData={qrscan} />}
     </div>
   );
 }
